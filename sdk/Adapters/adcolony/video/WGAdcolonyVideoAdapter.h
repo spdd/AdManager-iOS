@@ -6,10 +6,14 @@
 //
 //
 
-#import "WGAdapterProtocol.h"
+#if defined(__has_include) && __has_include(<AdColony/AdColony.h>)
+    #define AC_AVAILABLE
+#else
+    #define AC_NO_AVAILABLE
+#endif
 
-@interface WGAdcolonyVideoAdapter : NSObject <WGAdapterProtocol>
+#import <AdManager/WGAdsManager.h>
 
-+ (instancetype)sharedInstance:(id<WGAdapterDelegate>) delegate;
+@interface WGAdcolonyVideoAdapter : WGInterstitialCustomEvent
 
 @end

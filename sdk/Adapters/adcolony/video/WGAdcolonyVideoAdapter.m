@@ -7,13 +7,20 @@
 //
 
 #import "WGAdcolonyVideoAdapter.h"
+
+#ifdef AC_NO_AVAILABLE
+
+@implementation WGAdcolonyVideoAdapter
+@end
+#endif
+
+#ifdef AC_AVAILABLE
+
 #import <AdColony/AdColony.h>
-#import "WGLogger.h"
 
 @interface WGAdcolonyVideoAdapter () <AdColonyDelegate, AdColonyAdDelegate>
 
 @property (nonatomic, strong) NSString* zoneId;
-@property (nonatomic, strong) id<WGAdapterDelegate> delegate;
 @property (nonatomic) int londLoadAdCounter;
 @property (nonatomic) BOOL isVideoCached;
 @property (nonatomic) BOOL videoAutoLoading;
@@ -44,7 +51,7 @@
     @try {
         [self startAdRequests:paramDict];
         if(self.londLoadAdCounter > 0) {
-            AODLOG_VIDEO(@"show video adapter");
+            //AODLOG_VIDEO(@"show video adapter");
             if ([AdColony isVirtualCurrencyRewardAvailableForZone:self.zoneId]) {
                 self.isVideoCached = YES;
                 if ([self.delegate respondsToSelector:@selector(onLoaded:)]) {
@@ -117,7 +124,7 @@
 // On failure, posts an NSNotification so the rest of the app can disable V4VC UI elements
 - ( void ) onAdColonyV4VCReward:(BOOL)success currencyName:(NSString*)currencyName currencyAmount:(int)amount inZone:(NSString*)zoneID
 {
-    AODLOG_VIDEO(@"AdColony zone %@ reward %i %i %@", zoneID, success, amount, currencyName);
+    //AODLOG_VIDEO(@"AdColony zone %@ reward %i %i %@", zoneID, success, amount, currencyName);
     
     if (success) {
         if ([self.delegate respondsToSelector:@selector(onFinished:)]) {
@@ -135,14 +142,14 @@
 {
     if(available) {
         // Zone ready
-        AODLOG_VIDEO(@"AdColony Zone ready %@", zoneID);
+        //AODLOG_VIDEO(@"AdColony Zone ready %@", zoneID);
         self.isVideoCached = YES;
         if ([self.delegate respondsToSelector:@selector(onLoaded:)]) {
             [self.delegate onLoaded:[self getName]];
         }
     } else {
         // Zone loading
-        AODLOG_VIDEO(@"AdColony Zone loading %@", zoneID);
+        //AODLOG_VIDEO(@"AdColony Zone loading %@", zoneID);
         /*
          if ([self.delegate respondsToSelector:@selector(clipAdDidFailToLoad:error:)]) {
          [self.delegate clipAdDidFailToLoad:[self getName] error:nil];
@@ -176,7 +183,7 @@
         }
         //[audio play];
     } else {
-        AODLOG_VIDEO(@"AdColony did not play an ad for zone %@", zoneID);
+        //AODLOG_VIDEO(@"AdColony did not play an ad for zone %@", zoneID);
         self.isVideoCached = NO;
         if ([self.delegate respondsToSelector:@selector(onFailedToLoad:)]) {
             [self.delegate onFailedToLoad:[self getName]];
@@ -185,3 +192,4 @@
 }
 
 @end
+#endif

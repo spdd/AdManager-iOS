@@ -10,7 +10,6 @@
 #import "WGAdsInstanceFactory.h"
 #import "WGAdConstants.h"
 #import "WGUserAdCallbacks.h"
-#import "WGAdmobPrecache.h"
 #import "WGAdObject.h"
 
 @interface WGInterstitialController ()
@@ -45,6 +44,7 @@
         instance.controllerType = WGAdTypeInterstitial;
         instance.controllerPrefix = @"interstitial";
         instance.adapterInstances = [[WGAdsInstanceFactory sharedInstance] createInterstitialAdapters:instance];
+        instance.adapterKeys = [instance.adapterInstances allKeys];
         
         instance.adsAgent = [[WGAdsInstanceFactory sharedInstance] createAdAgent:instance];
         instance.adsAgent.adType = WGAdTypeInterstitial;
@@ -69,14 +69,14 @@
     [self logger:self.controllerType message:@"Show Interstitial"];
     if (self.isLoaded) {
         [self logger:self.controllerType message:[NSString stringWithFormat:@"show banner status: %@", self.status]];
-        NSObject <WGAdapterProtocol> *adapter = [self.adapterInstances objectForKey:self.status];
+        WGInterstitialCustomEvent *adapter = [self.adapterInstances objectForKey:self.status];
         if(adapter) {
             //scheduleShowPrecacheTimer();
             [adapter showInterstitial:rootController];
         }
     } else if (self.isPrecacheLoaded && !self.adsAgent.isPrecacheTmpDisabled) {
         [self logger:self.controllerType message:[NSString stringWithFormat:@"show precache banner status: %@", self.precacheStatus]];
-        [[WGAdmobPrecache sharedInstance:self] showInterstitial:rootController];
+        [self.precacheAdapter showInterstitial:rootController];
     } else {
         if (self.adsAgent.isPrecacheReady) {
             [self loadPrecache];
@@ -89,7 +89,7 @@
     }
 }
 
-- (void) evokeFailedToLoadAd:(id<WGAdapterProtocol>)adapter {
+- (void) evokeFailedToLoadAd:(WGInterstitialCustomEvent*)adapter {
     [self scheduleFailedToLoadAd];
 }
 

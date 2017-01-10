@@ -11,12 +11,14 @@
 #import "WGTimer.h"
 #import "WGConfigLoader.h"
 #import "WGAdAgent.h"
+/*
 #import "WGAdmobAdapter.h"
 #import "WGUnityAdapter.h"
 #import "WGAdcolonyVideoAdapter.h"
 #import "WGChartboostAdapter.h"
 #import "WGAdmobRewardedAdapter.h"
 #import "WGAppLovinRewardAdapter.h"
+ */
 #import "WGInterstitialCustomEvent.h"
 
 @implementation WGAdsInstanceFactory
@@ -49,45 +51,56 @@
 }
 
 - (NSMutableDictionary*) createInterstitialAdapters:(id<WGAdapterDelegate>)delegate {
-    NSArray* adapterNames = @[@"WGAdmobAdapter",@"WGChartboostAdapter"];
+    NSArray* adapterNames = @[
+                              @"WGAdmobAdapter"
+                              ,@"WGChartboostAdapter"
+                              ];
     NSMutableDictionary* adapters = [NSMutableDictionary dictionary];
     for (NSString* adapterClassName in adapterNames) {
         Class customClass = NSClassFromString(adapterClassName);
         if (!customClass) {
             continue;
+        } else {
+            NSLog(@"%@ created", adapterClassName);
         }
         WGInterstitialCustomEvent *customEvent = [[customClass alloc] init];
         customEvent.delegate = delegate;
         [adapters setObject:customEvent forKey:[customEvent getName]];
     }
-
+    return adapters;
     
-    return [[NSMutableDictionary alloc] initWithObjectsAndKeys:
-            [WGAdmobAdapter sharedInstance:delegate], [[WGAdmobAdapter sharedInstance:delegate] getName],
-            /*[self isInterAggregatorOn] ? [NSNull null] : */[WGChartboostAdapter sharedInstance:delegate], [[WGChartboostAdapter sharedInstance:delegate] getName],
-            nil];
+    //return [[NSMutableDictionary alloc] initWithObjectsAndKeys:
+            //[WGAdmobAdapter sharedInstance:delegate], [[WGAdmobAdapter sharedInstance:delegate] getName],
+            //*[self isInterAggregatorOn] ? [NSNull null] : */[WGChartboostAdapter sharedInstance:delegate], [[WGChartboostAdapter sharedInstance:delegate] getName],
+            //nil];
 }
 
 - (NSMutableDictionary*) createVideoAdapters:(id<WGAdapterDelegate>)delegate {
-    NSArray* adapterNames = @[@"WGUnityAdapter",@"WGChartboostAdapter", @"WGAdcolonyVideoAdapter", @"WGAppLovinRewardAdapter"];
+    NSArray* adapterNames = @[@"WGUnityAdapter"
+                              ,@"WGChartboostAdapter"
+                              , @"WGAdcolonyVideoAdapter"
+                              , @"WGAppLovinRewardAdapter"
+                              ];
     NSMutableDictionary* adapters = [NSMutableDictionary dictionary];
     for (NSString* adapterClassName in adapterNames) {
         Class customClass = NSClassFromString(adapterClassName);
         if (!customClass) {
             continue;
+        } else {
+            NSLog(@"%@ created", adapterClassName);
         }
         WGInterstitialCustomEvent *customEvent = [[customClass alloc] init];
         customEvent.delegate = delegate;
         [adapters setObject:customEvent forKey:[customEvent getName]];
     }
-    
-    return [[NSMutableDictionary alloc] initWithObjectsAndKeys:
-            /*[self isVideoAggregatorOn] ? [NSNull null] : */[WGUnityAdapter sharedInstance:delegate], [[WGUnityAdapter sharedInstance:delegate] getName],
-            /*[self isVideoAggregatorOn] ? [NSNull null] : */[WGChartboostAdapter sharedInstance:delegate], [[WGChartboostAdapter sharedInstance:delegate] getName],
-            /*[self isVideoAggregatorOn] ? [NSNull null] : */[WGAdcolonyVideoAdapter sharedInstance:delegate], [[WGAdcolonyVideoAdapter sharedInstance:delegate] getName],
-            /*[self isVideoAggregatorOn] ? [NSNull null] : */[WGAppLovinRewardAdapter sharedInstance:delegate], [[WGAppLovinRewardAdapter sharedInstance:delegate] getName],
+    return adapters;
+    //return [[NSMutableDictionary alloc] initWithObjectsAndKeys:
+            //*[self isVideoAggregatorOn] ? [NSNull null] : */[WGUnityAdapter sharedInstance:delegate], [[WGUnityAdapter sharedInstance:delegate] getName],
+            //*[self isVideoAggregatorOn] ? [NSNull null] : */[WGChartboostAdapter sharedInstance:delegate], [[WGChartboostAdapter sharedInstance:delegate] getName],
+            //*[self isVideoAggregatorOn] ? [NSNull null] : */[WGAdcolonyVideoAdapter sharedInstance:delegate], [[WGAdcolonyVideoAdapter sharedInstance:delegate] getName],
+            //*[self isVideoAggregatorOn] ? [NSNull null] : */[WGAppLovinRewardAdapter sharedInstance:delegate], [[WGAppLovinRewardAdapter sharedInstance:delegate] getName],
             //[WGAdmobRewardedAdapter sharedInstance:delegate], [[WGAdmobRewardedAdapter sharedInstance:delegate] getName],
-            nil];
+            //nil];
 }
 
 - (BOOL) isVideoAggregatorOn {

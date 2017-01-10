@@ -7,27 +7,23 @@
 //
 
 #import "WGAdmobPrecache.h"
+#ifdef ADMOB_NO_AVAILABLE
+
+@implementation WGAdmobPrecache
+@end
+#endif
+
+#ifdef ADMOB_AVAILABLE
+
 #import <GoogleMobileAds/GoogleMobileAds.h>
 
 @interface WGAdmobPrecache () <GADInterstitialDelegate>
 
 @property (nonatomic, strong) GADInterstitial *interstitial;
-@property (nonatomic, strong) id<WGPrecacheAdapterDelegate> delegate;
 
 @end
 
 @implementation WGAdmobPrecache
-
-+ (instancetype)sharedInstance:(id<WGPrecacheAdapterDelegate>) delegate {
-    static WGAdmobPrecache* _instance;
-    
-    static dispatch_once_t once;
-    dispatch_once(&once, ^{
-        _instance = [[super alloc] init];
-        _instance.delegate = delegate;
-    });
-    return _instance;
-}
 
 - (NSString*) getName { return @"admob"; }
 
@@ -70,40 +66,41 @@
         //self.londLoadAdCounter++;
         [self.interstitial presentFromRootViewController:rootController];
     } else {
-        [self.delegate onPrecacheFailedToLoad:[self getName]];
+        [self.precacheDelegate onPrecacheFailedToLoad:[self getName]];
     }
 }
 
 #pragma mark - Admob Delegate implementation
 
 - (void)interstitialDidReceiveAd:(GADInterstitial *)ad {
-    if ([self.delegate respondsToSelector:@selector(onPrecacheLoaded:)]) {
-        [self.delegate onPrecacheLoaded:[self getName]];
+    if ([self.precacheDelegate respondsToSelector:@selector(onPrecacheLoaded:)]) {
+        [self.precacheDelegate onPrecacheLoaded:[self getName]];
     }
 }
 - (void)interstitial:(GADInterstitial *)ad didFailToReceiveAdWithError:(GADRequestError *)error {
-    if ([self.delegate respondsToSelector:@selector(onPrecacheFailedToLoad:)]) {
-        [self.delegate onPrecacheFailedToLoad:[self getName]];
+    if ([self.precacheDelegate respondsToSelector:@selector(onPrecacheFailedToLoad:)]) {
+        [self.precacheDelegate onPrecacheFailedToLoad:[self getName]];
     }
 }
 
 - (void)interstitialWillPresentScreen:(GADInterstitial *)ad {
     //self.londLoadAdCounter = 0;
-    if ([self.delegate respondsToSelector:@selector(onPrecacheOpened:)]) {
-        [self.delegate onPrecacheOpened:[self getName]];
+    if ([self.precacheDelegate respondsToSelector:@selector(onPrecacheOpened:)]) {
+        [self.precacheDelegate onPrecacheOpened:[self getName]];
     }
 }
 
 - (void)interstitialWillLeaveApplication:(GADInterstitial *)ad {
-    if ([self.delegate respondsToSelector:@selector(onPrecacheClicked:)]) {
-        [self.delegate onPrecacheClicked:[self getName]];
+    if ([self.precacheDelegate respondsToSelector:@selector(onPrecacheClicked:)]) {
+        [self.precacheDelegate onPrecacheClicked:[self getName]];
     }
 }
 
 - (void)interstitialWillDismissScreen:(GADInterstitial *)ad {
-    if ([self.delegate respondsToSelector:@selector(onPrecacheClosed:)]) {
-        [self.delegate onPrecacheClosed:[self getName]];
+    if ([self.precacheDelegate respondsToSelector:@selector(onPrecacheClosed:)]) {
+        [self.precacheDelegate onPrecacheClosed:[self getName]];
     }
 }
 
 @end
+#endif

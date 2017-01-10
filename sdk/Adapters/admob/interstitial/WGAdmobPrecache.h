@@ -6,10 +6,14 @@
 //
 //
 
-#import "WGAdapterProtocol.h"
+#if defined(__has_include) && __has_include(<GoogleMobileAds/GoogleMobileAds.h>)
+    #define ADMOB_AVAILABLE
+#else
+    #define ADMOB_NO_AVAILABLE
+#endif
 
-@interface WGAdmobPrecache : NSObject <WGAdapterProtocol>
+#import <AdManager/WGInterstitialCustomEvent.h>
 
-+ (instancetype)sharedInstance:(id<WGPrecacheAdapterDelegate>) delegate;
+@interface WGAdmobPrecache : WGInterstitialCustomEvent
 
 @end

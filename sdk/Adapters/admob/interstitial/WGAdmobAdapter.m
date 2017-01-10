@@ -20,7 +20,7 @@
 @interface WGAdmobAdapter () <GADInterstitialDelegate>
 
 @property (nonatomic, strong) GADInterstitial *interstitial;
-@property (nonatomic, strong) id<WGAdapterDelegate> delegate;
+//@property (nonatomic, strong) id<WGAdapterDelegate> delegate;
 
 @end
 

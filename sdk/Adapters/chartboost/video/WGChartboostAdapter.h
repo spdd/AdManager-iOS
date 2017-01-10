@@ -6,10 +6,14 @@
 //
 //
 
-#import "WGAdapterProtocol.h"
+#if defined(__has_include) && __has_include(<Chartboost/Chartboost.h>)
+    #define CB_AVAILABLE
+#else
+    #define CB_NO_AVAILABLE
+#endif
 
-@interface WGChartboostAdapter : NSObject <WGAdapterProtocol>
+#import <AdManager/WGAdsManager.h>
 
-+ (instancetype)sharedInstance:(id<WGAdapterDelegate>) delegate;
+@interface WGChartboostAdapter : WGInterstitialCustomEvent
 
 @end

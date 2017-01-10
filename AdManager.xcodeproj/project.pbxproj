@@ -22,13 +22,6 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		2338AF431E230EAC003FB2F5 /* WGAdcolonyVideoAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2338AEF31E230EAC003FB2F5 /* WGAdcolonyVideoAdapter.m */; };
-		2338AF451E230EAC003FB2F5 /* WGAdmobAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2338AEF71E230EAC003FB2F5 /* WGAdmobAdapter.m */; };
-		2338AF471E230EAC003FB2F5 /* WGAdmobPrecache.m in Sources */ = {isa = PBXBuildFile; fileRef = 2338AEF91E230EAC003FB2F5 /* WGAdmobPrecache.m */; };
-		2338AF491E230EAC003FB2F5 /* WGAdmobRewardedAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2338AEFC1E230EAC003FB2F5 /* WGAdmobRewardedAdapter.m */; };
-		2338AF5E1E230EAC003FB2F5 /* WGAppLovinRewardAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2338AF1C1E230EAC003FB2F5 /* WGAppLovinRewardAdapter.m */; };
-		2338AF601E230EAC003FB2F5 /* WGChartboostAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2338AF201E230EAC003FB2F5 /* WGChartboostAdapter.m */; };
-		2338AF621E230EAC003FB2F5 /* WGUnityAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2338AF241E230EAC003FB2F5 /* WGUnityAdapter.m */; };
 		2338AF631E230EAC003FB2F5 /* WGAdAgent.h in Headers */ = {isa = PBXBuildFile; fileRef = 2338AF261E230EAC003FB2F5 /* WGAdAgent.h */; };
 		2338AF641E230EAC003FB2F5 /* WGAdAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 2338AF271E230EAC003FB2F5 /* WGAdAgent.m */; };
 		2338AF651E230EAC003FB2F5 /* WGAdapterProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 2338AF281E230EAC003FB2F5 /* WGAdapterProtocol.h */; };
@@ -423,15 +416,15 @@
 			files = (
 				2338AF791E230EAC003FB2F5 /* WGAdsManager.h in Headers */,
 				2338AF7E1E231230003FB2F5 /* WGReachability.h in Headers */,
-				2338AF6E1E230EAC003FB2F5 /* WGBaseAdsController.h in Headers */,
 				2338AF7B1E230EAC003FB2F5 /* WGUserAdCallbacks.h in Headers */,
+				2338AF6E1E230EAC003FB2F5 /* WGBaseAdsController.h in Headers */,
 				2338AF691E230EAC003FB2F5 /* WGAdsInstanceFactory.h in Headers */,
 				2338AF651E230EAC003FB2F5 /* WGAdapterProtocol.h in Headers */,
+				2338AF8F1E23318E003FB2F5 /* WGInterstitialCustomEvent.h in Headers */,
 				2338AF6C1E230EAC003FB2F5 /* WGConfigLoader.h in Headers */,
 				2338AF771E230EAC003FB2F5 /* WGUtils.h in Headers */,
 				2338AF751E230EAC003FB2F5 /* WGTimer.h in Headers */,
 				2338AF741E230EAC003FB2F5 /* WGLogger.h in Headers */,
-				2338AF8F1E23318E003FB2F5 /* WGInterstitialCustomEvent.h in Headers */,
 				2338AF6B1E230EAC003FB2F5 /* WGTypes.h in Headers */,
 				2338AF701E230EAC003FB2F5 /* WGInterstitialController.h in Headers */,
 				2338AF671E230EAC003FB2F5 /* WGAdObject.h in Headers */,
@@ -528,7 +521,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\n\nexport FRAMEWORK_LOCN=\"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework\"\n\n# Create the path to the real Headers die\nmkdir -p \"${FRAMEWORK_LOCN}/Versions/A/Headers\"\n\n# Create the path to the Modules\nmkdir -p \"${FRAMEWORK_LOCN}/Modules\"\n\n# Create the path to the Adapters\nmkdir -p \"${FRAMEWORK_LOCN}/Adapters\"\n\n# Create the required symlinks\n/bin/ln -sfh A \"${FRAMEWORK_LOCN}/Versions/Current\"\n/bin/ln -sfh Versions/Current/Headers \"${FRAMEWORK_LOCN}/Headers\"\n/bin/ln -sfh \"Versions/Current/${PRODUCT_NAME}\" \\\n\"${FRAMEWORK_LOCN}/${PRODUCT_NAME}\"\n\n# Copy the public headers into the framework\n/bin/cp -a \"${TARGET_BUILD_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}/\" \\\n\"${FRAMEWORK_LOCN}/Versions/A/Headers\"\n\n# Copy the modulemap into the framework\n/bin/cp -a \"${SRCROOT}/module.modulemap\" \\\n\"${FRAMEWORK_LOCN}/Modules\"\n\n# Copy the modulemap into the framework\n/bin/cp -R \"${SRCROOT}/sdk/Adapters\" \\\n\"${FRAMEWORK_LOCN}/\"";
+			shellScript = "set -e\n\nexport FRAMEWORK_LOCN=\"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework\"\n\n# Create the path to the real Headers die\nmkdir -p \"${FRAMEWORK_LOCN}/Versions/A/Headers\"\n\n# Create the path to the Modules\nmkdir -p \"${FRAMEWORK_LOCN}/Modules\"\n\n# Create the path to the Adapters\n#mkdir -p \"${FRAMEWORK_LOCN}/Adapters\"\n\n# Create the required symlinks\n/bin/ln -sfh A \"${FRAMEWORK_LOCN}/Versions/Current\"\n/bin/ln -sfh Versions/Current/Headers \"${FRAMEWORK_LOCN}/Headers\"\n/bin/ln -sfh \"Versions/Current/${PRODUCT_NAME}\" \\\n\"${FRAMEWORK_LOCN}/${PRODUCT_NAME}\"\n\n# Copy the public headers into the framework\n/bin/cp -a \"${TARGET_BUILD_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}/\" \\\n\"${FRAMEWORK_LOCN}/Versions/A/Headers\"\n\n# Copy the modulemap into the framework\n/bin/cp -a \"${SRCROOT}/module.modulemap\" \\\n\"${FRAMEWORK_LOCN}/Modules\"\n\n# Copy the modulemap into the framework\n# /bin/cp -R \"${SRCROOT}/sdk/Adapters\" \\\n#\"${FRAMEWORK_LOCN}/\"";
 		};
 		9AA3B1941AC005C4005BA225 /* MultiPlatform Build */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -566,23 +559,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2338AF431E230EAC003FB2F5 /* WGAdcolonyVideoAdapter.m in Sources */,
 				2338AF7A1E230EAC003FB2F5 /* WGAdsManager.m in Sources */,
-				2338AF451E230EAC003FB2F5 /* WGAdmobAdapter.m in Sources */,
 				2338AF711E230EAC003FB2F5 /* WGInterstitialController.m in Sources */,
 				2338AF781E230EAC003FB2F5 /* WGUtils.m in Sources */,
 				2338AF6F1E230EAC003FB2F5 /* WGBaseAdsController.m in Sources */,
-				2338AF5E1E230EAC003FB2F5 /* WGAppLovinRewardAdapter.m in Sources */,
 				2338AF6D1E230EAC003FB2F5 /* WGConfigLoader.m in Sources */,
 				2338AF6A1E230EAC003FB2F5 /* WGAdsInstanceFactory.m in Sources */,
 				2338AF901E23318E003FB2F5 /* WGInterstitialCustomEvent.m in Sources */,
-				2338AF471E230EAC003FB2F5 /* WGAdmobPrecache.m in Sources */,
-				2338AF621E230EAC003FB2F5 /* WGUnityAdapter.m in Sources */,
-				2338AF601E230EAC003FB2F5 /* WGChartboostAdapter.m in Sources */,
 				2338AF641E230EAC003FB2F5 /* WGAdAgent.m in Sources */,
 				2338AF7F1E231230003FB2F5 /* WGReachability.m in Sources */,
 				2338AF761E230EAC003FB2F5 /* WGTimer.m in Sources */,
-				2338AF491E230EAC003FB2F5 /* WGAdmobRewardedAdapter.m in Sources */,
 				2338AF681E230EAC003FB2F5 /* WGAdObject.m in Sources */,
 				2338AF731E230EAC003FB2F5 /* WGVideoController.m in Sources */,
 			);

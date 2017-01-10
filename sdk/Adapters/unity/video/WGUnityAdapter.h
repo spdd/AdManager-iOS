@@ -6,10 +6,14 @@
 //
 //
 
-#import "WGAdapterProtocol.h"
+#if defined(__has_include) && __has_include(<UnityAds/UnityAds.h>)
+    #define UNITY_AVAILABLE
+#else
+    #define UNITY_NO_AVAILABLE
+#endif
 
-@interface WGUnityAdapter : NSObject <WGAdapterProtocol>
+#import <AdManager/WGAdsManager.h>
 
-+ (instancetype)sharedInstance:(id<WGAdapterDelegate>) delegate;
+@interface WGUnityAdapter : WGInterstitialCustomEvent
 
 @end

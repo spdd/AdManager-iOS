@@ -1,5 +1,5 @@
-framework module AppodealAds {
-  umbrella header "Appodeal.h"
+framework module AdManager {
+  umbrella header "WGAdsManager.h"
 
   export *
   module * { export * }

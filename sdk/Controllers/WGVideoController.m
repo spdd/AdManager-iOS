@@ -42,6 +42,7 @@
         instance.controllerType = WGAdTypeVideo;
         instance.controllerPrefix = @"video";
         instance.adapterInstances = [[WGAdsInstanceFactory sharedInstance] createVideoAdapters:instance];
+        instance.adapterKeys = [instance.adapterInstances allKeys];
         
         instance.adsAgent = [[WGAdsInstanceFactory sharedInstance] createAdAgent:instance];
         instance.adsAgent.adType = WGAdTypeVideo;
@@ -65,13 +66,13 @@
 - (void) showAd:(UIViewController *)rootController {
     [self logger:self.controllerType message:@"Show video"];
     [self logger:self.controllerType message:[NSString stringWithFormat:@"show video status: %@", self.status]];
-    NSObject <WGAdapterProtocol> *adapter = [self.adapterInstances objectForKey:self.status];
+    WGInterstitialCustomEvent *adapter = [self.adapterInstances objectForKey:self.status];
     if (self.isLoaded) {
         if(adapter && [adapter isCached]) {
             NSLog(@"show current video adapter");
             [adapter showVideo:rootController];
         } else if ([self.adsAgent getCachedVideo]) {
-            NSObject <WGAdapterProtocol> *nextAdapter = [self.adapterInstances objectForKey:[self.adsAgent getCachedVideo]];
+            WGInterstitialCustomEvent *nextAdapter = [self.adapterInstances objectForKey:[self.adsAgent getCachedVideo]];
             if (nextAdapter && [nextAdapter isCached]) {
                 NSLog(@"show next video adapter");
                 [nextAdapter showVideo:rootController];
@@ -100,7 +101,7 @@
     [self loadAd];
 }
 
-- (void) evokeFailedToLoadAd:(id<WGAdapterProtocol>)adapter {
+- (void) evokeFailedToLoadAd:(WGInterstitialCustomEvent*)adapter {
     if ([adapter isAutoLoadingVideo]) {
         [self scheduleFailedToLoadAd];
     }

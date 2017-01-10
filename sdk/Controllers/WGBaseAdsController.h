@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "WGTypes.h"
-#import "WGAdapterProtocol.h"
+#import "WGInterstitialCustomEvent.h"
 #import "WGAdAgent.h"
 
 @class WGAdAgent;
@@ -48,6 +48,7 @@
 @property (nonatomic) BOOL isLoadedTriggerBoth;
 
 @property (nonatomic, strong, readwrite) NSMutableDictionary* adapterInstances;
+@property (nonatomic, strong, readwrite) NSArray* adapterKeys;
 @property (nonatomic, strong, readwrite) WGAdAgent* adsAgent;
 
 @property (nonatomic, strong) UIViewController* rootController;
@@ -57,6 +58,7 @@
 @property (nonatomic, strong) WGTimer *precacheResetCounterTimer;
 @property (nonatomic, strong) WGTimer *loadAdTimer;
 @property (nonatomic, strong) WGTimer *preloaderTimer;
+@property (nonatomic, strong) WGInterstitialCustomEvent *precacheAdapter;
 
 @property (nonatomic, assign, readwrite) BOOL isPrecache;
 
@@ -75,7 +77,7 @@
 - (void) disabledNetwork:(NSString*)network;
 - (void) setAutoCache:(BOOL)autoCache;
 - (BOOL) adNetworkIsAvailable:(NSString*)adName;
-- (void) evokeFailedToLoadAd:(id<WGAdapterProtocol>)adapter;
+- (void) evokeFailedToLoadAd:(WGInterstitialCustomEvent*)adapter;
 - (int)  getTimeIntervalForLoadSheduler;
 - (void) scheduleFailedToLoadAd;
 

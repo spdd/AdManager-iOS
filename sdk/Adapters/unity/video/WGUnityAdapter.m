@@ -7,11 +7,21 @@
 //
 
 #import "WGUnityAdapter.h"
+
+
+#ifdef UNITY_NO_AVAILABLE
+
+@implementation WGUnityAdapter
+@end
+
+#endif
+
+#ifdef UNITY_AVAILABLE
+
 #import <UnityAds/UnityAds.h>
 
 @interface WGUnityAdapter () <UnityAdsDelegate>
 
-@property (nonatomic, strong) id<WGAdapterDelegate> delegate;
 @property (nonatomic) int londLoadAdCounter;
 @property (nonatomic) BOOL isVideoCached;
 @property (nonatomic) BOOL videoAutoLoading;
@@ -200,3 +210,4 @@
 }
 
 @end
+#endif

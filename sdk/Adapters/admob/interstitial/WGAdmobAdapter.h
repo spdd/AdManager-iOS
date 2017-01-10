@@ -12,10 +12,10 @@
     #define ADMOB_NO_AVAILABLE
 #endif
 
-#import "WGAdapterProtocol.h"
+//#import "WGAdapterProtocol.h"
+#import <AdManager/WGAdsManager.h>
+//#import "WGInterstitialCustomEvent.h"
 
-@interface WGAdmobAdapter : NSObject <WGAdapterProtocol>
-
-+ (instancetype)sharedInstance:(id<WGAdapterDelegate>) delegate;
+@interface WGAdmobAdapter : WGInterstitialCustomEvent // NSObject <WGAdapterProtocol>
 
 @end

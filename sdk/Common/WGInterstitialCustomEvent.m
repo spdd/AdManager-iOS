@@ -41,4 +41,15 @@
     // Subclasses may override this method
 }
 
+- (void) showVideo:(UIViewController*)rootController {
+    // Subclasses may override this method
+}
+
+- (void) onStart {}
+- (void) onStop {}
+- (void) onDestroy {}
+- (void) onPause {}
+- (void) onResume {}
+- (BOOL) isNativeSDK { return NO; }
+
 @end

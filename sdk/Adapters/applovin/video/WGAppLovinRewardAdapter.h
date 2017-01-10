@@ -6,10 +6,14 @@
 //
 //
 
-#import "WGAdapterProtocol.h"
+#if defined(__has_include) && __has_include("ALSdk.h")
+    #define APPLOVIN_AVAILABLE
+#else
+    #define APPLOVIN_NO_AVAILABLE
+#endif
 
-@interface WGAppLovinRewardAdapter : NSObject <WGAdapterProtocol>
+#import <AdManager/WGAdsManager.h>
 
-+ (instancetype)sharedInstance:(id<WGAdapterDelegate>) delegate;
+@interface WGAppLovinRewardAdapter : WGInterstitialCustomEvent
 
 @end

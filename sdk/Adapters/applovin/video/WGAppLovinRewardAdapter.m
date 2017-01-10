@@ -7,13 +7,21 @@
 //
 
 #import "WGAppLovinRewardAdapter.h"
+
+#ifdef APPLOVIN_NO_AVAILABLE
+
+@implementation WGAppLovinRewardAdapter
+@end
+#endif
+
+#ifdef APPLOVIN_AVAILABLE
+
 #import "ALSdk.h"
 #import "ALIncentivizedInterstitialAd.h"
 
 @interface WGAppLovinRewardAdapter () <ALAdLoadDelegate, ALAdRewardDelegate,
 ALAdDisplayDelegate, ALAdVideoPlaybackDelegate>
 
-@property (nonatomic, strong) id<WGAdapterDelegate> delegate;
 @property (nonatomic) int londLoadAdCounter;
 @property (nonatomic) BOOL isVideoCached;
 @property (nonatomic) BOOL videoAutoLoading;
@@ -169,3 +177,4 @@ ALAdDisplayDelegate, ALAdVideoPlaybackDelegate>
 }
 
 @end
+#endif

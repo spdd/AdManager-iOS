@@ -7,7 +7,6 @@
 //
 
 #import "WGBaseAdsController.h"
-#import "WGAdapterProtocol.h"
 #import "WGAdsInstanceFactory.h"
 #import "WGAdConstants.h"
 #import "WGAdObject.h"
@@ -15,7 +14,6 @@
 #import "WGUtils.h"
 #import "WGConfigLoader.h"
 #import "WGTimer.h"
-#import "WGAdmobPrecache.h"
 
 @interface WGBaseAdsController () <WGConfigLoaderDelegate>
 
@@ -81,35 +79,35 @@
 - (void) onStart {
     self.isOpened = NO;
     if (self.status) {
-        NSObject <WGAdapterProtocol> *adapter = [self.adapterInstances objectForKey:self.status];
+        WGInterstitialCustomEvent *adapter = [self.adapterInstances objectForKey:self.status];
         if (adapter) [adapter onStart];
     }
 }
 
 - (void) onStop {
     if (self.status) {
-        NSObject <WGAdapterProtocol> *adapter = [self.adapterInstances objectForKey:self.status];
+        WGInterstitialCustomEvent *adapter = [self.adapterInstances objectForKey:self.status];
         if (adapter) [adapter onStop];
     }
 }
 
 - (void) onDestroy {
     if (self.status) {
-        NSObject <WGAdapterProtocol> *adapter = [self.adapterInstances objectForKey:self.status];
+        WGInterstitialCustomEvent *adapter = [self.adapterInstances objectForKey:self.status];
         if (adapter) [adapter onDestroy];
     }
 }
 
 - (void) onPause {
     if (self.status) {
-        NSObject <WGAdapterProtocol> *adapter = [self.adapterInstances objectForKey:self.status];
+        WGInterstitialCustomEvent *adapter = [self.adapterInstances objectForKey:self.status];
         if (adapter) [adapter onPause];
     }
 }
 
 - (void) onResume {
     if (self.status) {
-        NSObject <WGAdapterProtocol> *adapter = [self.adapterInstances objectForKey:self.status];
+        WGInterstitialCustomEvent *adapter = [self.adapterInstances objectForKey:self.status];
         if (adapter) [adapter onResume];
     }
 }
@@ -230,7 +228,7 @@
     self.status = [[self.adsAgent getAdObject] getAdName];
     [self logger:self.controllerType message:[NSString stringWithFormat:@"Load Status: %@", self.status]];
     
-    NSObject <WGAdapterProtocol> *adapter = [self.adapterInstances objectForKey:self.status];
+    WGInterstitialCustomEvent *adapter = [self.adapterInstances objectForKey:self.status];
     if (adapter && [[adapter getName] isEqualToString:self.status]) {
         if ([adapter isAvailable]) {
             [self evokeFailedToLoadAd:adapter];
@@ -245,7 +243,7 @@
     }
 }
 
-- (void) evokeFailedToLoadAd:(id<WGAdapterProtocol>)adapter {}
+- (void) evokeFailedToLoadAd:(WGInterstitialCustomEvent*)adapter {}
 
 - (void)loadPrecache {
     [self loadPrecache:0];
@@ -268,12 +266,16 @@
             self.precacheStatus = [[self.adsAgent getPrecacheAdObject] getAdName];
             [self logger:self.controllerType message:[NSString stringWithFormat:@"Precache status: %@", self.precacheStatus]];
             
-            NSObject <WGAdapterProtocol> *adapter = [WGAdmobPrecache sharedInstance:self];
-            if (adapter && [[adapter getName] isEqualToString:self.precacheStatus]) {
-                if ([adapter isAvailable]) {
-                    [adapter initAd:[self.adsAgent getPrecacheAdObject].requestData];
+            Class customClass = NSClassFromString(@"WGAdmobPrecache");
+
+            _precacheAdapter = [[customClass alloc] init];
+            _precacheAdapter.precacheDelegate = self;
+            
+            if (_precacheAdapter && [[_precacheAdapter getName] isEqualToString:self.precacheStatus]) {
+                if ([_precacheAdapter isAvailable]) {
+                    [_precacheAdapter initAd:[self.adsAgent getPrecacheAdObject].requestData];
                 } else {
-                    [self onPrecacheFailedToLoad:[adapter getName]];
+                    [self onPrecacheFailedToLoad:[_precacheAdapter getName]];
                     return;
                 }
             } else {
@@ -348,12 +350,14 @@
             
             // second ads
             NSArray* adsArray = config[[NSString stringWithFormat:@"ads_%@", self.controllerPrefix]];
-            [self logger:self.controllerType message:[NSString stringWithFormat: @"adsArray size: %ld", adsArray.count]];
+            [self logger:self.controllerType message:[NSString stringWithFormat: @"adsArray size: %d", (int)adsArray.count]];
             if (adsArray) {
                 int cost = 1;
                 for (NSDictionary* dict in adsArray) {
-                    [self.adsAgent push:dict cost:cost];
-                    cost++;
+                    if ([self isAdNameAvailable:dict[@"adname"]]) {
+                        [self.adsAgent push:dict cost:cost];
+                        cost++;
+                    }
                 }
             }
             
@@ -367,6 +371,15 @@
             [self onFailedToLoad];
         }
     }
+}
+
+- (BOOL) isAdNameAvailable:(NSString*)adName {
+    for (NSString* ad in self.adapterKeys) {
+        if ([adName isEqualToString:ad]) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 #pragma mark - Shedulers implementation

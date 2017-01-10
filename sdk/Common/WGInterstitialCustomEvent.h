@@ -42,7 +42,16 @@
 - (BOOL) isCached;
 - (BOOL) isAutoLoadingVideo;
 - (void) showInterstitial:(UIViewController*)rootController;
+- (void) showVideo:(UIViewController*)rootController;
+
+- (void) onStart;
+- (void) onStop;
+- (void) onDestroy;
+- (void) onPause;
+- (void) onResume;
+- (BOOL) isNativeSDK;
 
 @property (nonatomic, weak) id<WGAdapterDelegate> delegate;
+@property (nonatomic, weak) id<WGPrecacheAdapterDelegate> precacheDelegate;
 
 @end
