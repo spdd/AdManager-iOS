@@ -88,7 +88,7 @@
         remoteConfig.configSettings = remoteConfigSettings;
         [remoteConfig fetchWithExpirationDuration:0 completionHandler:^(FIRRemoteConfigFetchStatus status, NSError *error) {
             if (status == FIRRemoteConfigFetchStatusSuccess) {
-                AODLOG(@"Config fetched!");
+                AODLOG_DEBUG(@"Config fetched!");
                 [remoteConfig activateFetched];
                 
                 NSArray *bundleIdentifiers = [[[NSBundle mainBundle] bundleIdentifier] componentsSeparatedByString:@"."];
@@ -97,8 +97,8 @@
                 //if (remoteConfig[@"ad_config_whatthewordrus"].stringValue.length > 0) {
                 //    NSLog(@"configKey exists");
                 //}
-                //NSLog(@"configKey: %@", configKey);
-                NSLog(@"Fire config: %@", remoteConfig[configKey].stringValue);
+                AODLOG_DEBUG(@"configKey: %@", configKey);
+                AODLOG_DEBUG(@"Fire config: %@", remoteConfig[configKey].stringValue);
                 NSString* admobVideoAggrKey = [NSString stringWithFormat:REM_CFG_ADMOB_V_AGGR, prefix];
                 NSString* admobIntersAggrKey = [NSString stringWithFormat:REM_CFG_ADMOB_I_AGGR, prefix];
                 if (remoteConfig[admobVideoAggrKey])

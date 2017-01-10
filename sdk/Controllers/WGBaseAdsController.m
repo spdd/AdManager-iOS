@@ -352,6 +352,14 @@
             NSArray* adsArray = config[[NSString stringWithFormat:@"ads_%@", self.controllerPrefix]];
             [self logger:self.controllerType message:[NSString stringWithFormat: @"adsArray size: %d", (int)adsArray.count]];
             if (adsArray) {
+                NSMutableArray* adnames = [NSMutableArray array];
+                for (NSDictionary* dict in adsArray) {
+                    [adnames addObject:dict[@"adname"]];
+                }
+                [self setupAdapters:adnames];
+            }
+            
+            if (adsArray) {
                 int cost = 1;
                 for (NSDictionary* dict in adsArray) {
                     if ([self isAdNameAvailable:dict[@"adname"]]) {

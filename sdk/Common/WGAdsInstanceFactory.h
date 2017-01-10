@@ -21,7 +21,7 @@
 - (WGTimer*) buildTimerWithTimeInterval:(NSTimeInterval)seconds target:(id)target selector:(SEL)selector repeats:(BOOL)repeats;
 - (WGConfigLoader*) createConfigLoader:(id<WGConfigLoaderDelegate>)delegate;
 - (WGAdAgent*) createAdAgent:(id<WGAdAgentDelegate>)agentDelegate;
-- (NSMutableDictionary*) createInterstitialAdapters:(id<WGAdapterDelegate>)delegate;
-- (NSMutableDictionary*) createVideoAdapters:(id<WGAdapterDelegate>)delegate;
+- (NSMutableDictionary*) createInterstitialAdapters:(id<WGAdapterDelegate>)delegate adnames:(NSArray*)adapterNames;
+- (NSMutableDictionary*) createVideoAdapters:(id<WGAdapterDelegate>)delegate adnames:(NSArray*)adapterNames;
 
 @end

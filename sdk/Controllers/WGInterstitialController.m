@@ -43,8 +43,8 @@
         instance.autocache = autoCache;
         instance.controllerType = WGAdTypeInterstitial;
         instance.controllerPrefix = @"interstitial";
-        instance.adapterInstances = [[WGAdsInstanceFactory sharedInstance] createInterstitialAdapters:instance];
-        instance.adapterKeys = [instance.adapterInstances allKeys];
+        //instance.adapterInstances = [[WGAdsInstanceFactory sharedInstance] createInterstitialAdapters:instance];
+        //instance.adapterKeys = [instance.adapterInstances allKeys];
         
         instance.adsAgent = [[WGAdsInstanceFactory sharedInstance] createAdAgent:instance];
         instance.adsAgent.adType = WGAdTypeInterstitial;
@@ -52,6 +52,11 @@
         [instance logger:instance.controllerType message: @"Initialize interstitial controller"];
     });
     return instance;
+}
+
+- (void) setupAdapters:(NSArray *)adnames {
+    self.adapterInstances = [[WGAdsInstanceFactory sharedInstance] createInterstitialAdapters:self adnames:adnames];
+    self.adapterKeys = [self.adapterInstances allKeys];
 }
 
 - (void) setAdDelegate:(id<WGInterstitialDelegate>)delegate {

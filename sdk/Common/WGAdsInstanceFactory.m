@@ -11,6 +11,7 @@
 #import "WGTimer.h"
 #import "WGConfigLoader.h"
 #import "WGAdAgent.h"
+#import "WGLogger.h"
 /*
 #import "WGAdmobAdapter.h"
 #import "WGUnityAdapter.h"
@@ -50,18 +51,20 @@
     return [[WGAdAgent alloc] initAgentWithDelegate:agentDelegate];
 }
 
-- (NSMutableDictionary*) createInterstitialAdapters:(id<WGAdapterDelegate>)delegate {
-    NSArray* adapterNames = @[
-                              @"WGAdmobAdapter"
-                              ,@"WGChartboostAdapter"
-                              ];
+- (NSMutableDictionary*) createInterstitialAdapters:(id<WGAdapterDelegate>)delegate adnames:(NSArray*)adapterNames {
+    //NSArray* adapterNames = @[
+    //                          @"WGAdmobAdapter"
+    //                          ,@"WGChartboostAdapter"
+    //                          ];
     NSMutableDictionary* adapters = [NSMutableDictionary dictionary];
-    for (NSString* adapterClassName in adapterNames) {
-        Class customClass = NSClassFromString(adapterClassName);
+    for (NSString* adname in adapterNames) {
+        NSString* className = [self createAdapterClassName:adname];
+        Class customClass = NSClassFromString(className);
         if (!customClass) {
+            AODLOG_DEBUG(@"Not found class %@", className);
             continue;
         } else {
-            NSLog(@"%@ created", adapterClassName);
+            AODLOG_DEBUG(@"inter %@ created", className);
         }
         WGInterstitialCustomEvent *customEvent = [[customClass alloc] init];
         customEvent.delegate = delegate;
@@ -75,19 +78,21 @@
             //nil];
 }
 
-- (NSMutableDictionary*) createVideoAdapters:(id<WGAdapterDelegate>)delegate {
-    NSArray* adapterNames = @[@"WGUnityAdapter"
-                              ,@"WGChartboostAdapter"
-                              , @"WGAdcolonyVideoAdapter"
-                              , @"WGAppLovinRewardAdapter"
-                              ];
+- (NSMutableDictionary*) createVideoAdapters:(id<WGAdapterDelegate>)delegate adnames:(NSArray*)adapterNames {
+    //NSArray* adapterNames = @[@"WGUnityAdapter"
+    //                          ,@"WGChartboostAdapter"
+     //                         , @"WGAdcolonyVideoAdapter"
+    //                          , @"WGAppLovinRewardAdapter"
+    //                          ];
     NSMutableDictionary* adapters = [NSMutableDictionary dictionary];
-    for (NSString* adapterClassName in adapterNames) {
-        Class customClass = NSClassFromString(adapterClassName);
+    for (NSString* adname in adapterNames) {
+        NSString* className = [self createAdapterClassName:adname];
+        Class customClass = NSClassFromString(className);
         if (!customClass) {
+            AODLOG_DEBUG(@"Not found class %@", className);
             continue;
         } else {
-            NSLog(@"%@ created", adapterClassName);
+            AODLOG_DEBUG(@"video %@ created", className);
         }
         WGInterstitialCustomEvent *customEvent = [[customClass alloc] init];
         customEvent.delegate = delegate;
@@ -117,6 +122,12 @@
         return YES;
     }
     return NO;
+}
+
+- (NSString*) createAdapterClassName:(NSString*)adname {
+    NSString* result = [adname stringByReplacingOccurrencesOfString:@"_" withString:@""];
+    NSString* className = [NSString stringWithFormat:@"WG%@Adapter", [result uppercaseString]];
+    return className;
 }
 
 @end

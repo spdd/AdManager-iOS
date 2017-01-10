@@ -73,6 +73,7 @@
 - (BOOL) isOpened;
 - (void) loadConfig;
 
+- (void) setupAdapters:(NSArray*)adnames;
 - (void) setTesting:(BOOL)isTesting;
 - (void) disabledNetwork:(NSString*)network;
 - (void) setAutoCache:(BOOL)autoCache;

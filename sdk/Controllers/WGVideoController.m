@@ -11,6 +11,7 @@
 #import "WGAdConstants.h"
 #import "WGUserAdCallbacks.h"
 #import "WGAdObject.h"
+#import "WGLogger.h"
 
 @interface WGVideoController ()
 
@@ -41,8 +42,8 @@
         instance.autocache = autoCache;
         instance.controllerType = WGAdTypeVideo;
         instance.controllerPrefix = @"video";
-        instance.adapterInstances = [[WGAdsInstanceFactory sharedInstance] createVideoAdapters:instance];
-        instance.adapterKeys = [instance.adapterInstances allKeys];
+        //instance.adapterInstances = [[WGAdsInstanceFactory sharedInstance] createVideoAdapters:instance];
+        //instance.adapterKeys = [instance.adapterInstances allKeys];
         
         instance.adsAgent = [[WGAdsInstanceFactory sharedInstance] createAdAgent:instance];
         instance.adsAgent.adType = WGAdTypeVideo;
@@ -50,6 +51,11 @@
         [instance logger:instance.controllerType message: @"Initialize video controller"];
     });
     return instance;
+}
+
+- (void) setupAdapters:(NSArray *)adnames {
+    self.adapterInstances = [[WGAdsInstanceFactory sharedInstance] createVideoAdapters:self adnames:adnames];
+    self.adapterKeys = [self.adapterInstances allKeys];
 }
 
 - (void) setAdDelegate:(id<WGVideoDelegate>)delegate {
@@ -69,12 +75,12 @@
     WGInterstitialCustomEvent *adapter = [self.adapterInstances objectForKey:self.status];
     if (self.isLoaded) {
         if(adapter && [adapter isCached]) {
-            NSLog(@"show current video adapter");
+            AODLOG_DEBUG(@"show current video adapter");
             [adapter showVideo:rootController];
         } else if ([self.adsAgent getCachedVideo]) {
             WGInterstitialCustomEvent *nextAdapter = [self.adapterInstances objectForKey:[self.adsAgent getCachedVideo]];
             if (nextAdapter && [nextAdapter isCached]) {
-                NSLog(@"show next video adapter");
+                AODLOG_DEBUG(@"show next video adapter");
                 [nextAdapter showVideo:rootController];
             }
         }
