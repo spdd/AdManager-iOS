@@ -30,18 +30,14 @@
 
 @implementation WGUnityAdapter
 
-+ (instancetype)sharedInstance:(id<WGAdapterDelegate>) delegate {
-    static WGUnityAdapter* _instance;
-    
-    static dispatch_once_t once;
-    dispatch_once(&once, ^{
-        _instance = [[super alloc] init];
-        _instance.delegate = delegate;
-        _instance.londLoadAdCounter = 0;
-        _instance.videoAutoLoading = YES;
-        _instance.isVideoCached = NO;
-    });
-    return _instance;
+- (id) init {
+    self = [super init];
+    if (self != nil) {
+        self.londLoadAdCounter = 0;
+        self.videoAutoLoading = YES;
+        self.isVideoCached = NO;
+    }
+    return self;
 }
 
 - (NSString*) getName {

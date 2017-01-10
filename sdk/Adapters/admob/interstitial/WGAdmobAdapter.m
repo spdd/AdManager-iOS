@@ -26,17 +26,6 @@
 
 @implementation WGAdmobAdapter
 
-+ (instancetype)sharedInstance:(id<WGAdapterDelegate>) delegate {
-    static WGAdmobAdapter* _instance;
-    
-    static dispatch_once_t once;
-    dispatch_once(&once, ^{
-        _instance = [[super alloc] init];
-        _instance.delegate = delegate;
-    });
-    return _instance;
-}
-
 - (NSString*) getName { return @"admob"; }
 
 - (void) initAd:(NSDictionary*)paramDict {
