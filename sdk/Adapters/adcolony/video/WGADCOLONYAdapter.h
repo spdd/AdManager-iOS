@@ -14,6 +14,6 @@
 
 #import <AdManager/WGAdsManager.h>
 
-@interface WGAdcolonyVideoAdapter : WGInterstitialCustomEvent
+@interface WGADCOLONYAdapter : WGInterstitialCustomEvent
 
 @end

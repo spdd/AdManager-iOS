@@ -6,11 +6,11 @@
 //
 //
 
-#import "WGAppLovinRewardAdapter.h"
+#import "WGAPPLOVINAdapter.h"
 
 #ifdef APPLOVIN_NO_AVAILABLE
 
-@implementation WGAppLovinRewardAdapter
+@implementation WGAPPLOVINAdapter
 @end
 #endif
 
@@ -19,7 +19,7 @@
 #import "ALSdk.h"
 #import "ALIncentivizedInterstitialAd.h"
 
-@interface WGAppLovinRewardAdapter () <ALAdLoadDelegate, ALAdRewardDelegate,
+@interface WGAPPLOVINAdapter () <ALAdLoadDelegate, ALAdRewardDelegate,
 ALAdDisplayDelegate, ALAdVideoPlaybackDelegate>
 
 @property (nonatomic) int londLoadAdCounter;
@@ -28,7 +28,7 @@ ALAdDisplayDelegate, ALAdVideoPlaybackDelegate>
 
 @end
 
-@implementation WGAppLovinRewardAdapter
+@implementation WGAPPLOVINAdapter
 
 - (id) init {
     self = [super init];

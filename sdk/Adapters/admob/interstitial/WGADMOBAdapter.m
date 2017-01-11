@@ -5,11 +5,11 @@
 //  Created by Dmitry B on 02.03.16.
 //
 //
-#import "WGAdmobAdapter.h"
+#import "WGADMOBAdapter.h"
 
 #ifdef ADMOB_NO_AVAILABLE
 
-@implementation WGAdmobAdapter
+@implementation WGADMOBAdapter
 @end
 #endif
 
@@ -17,14 +17,13 @@
 
 #import <GoogleMobileAds/GoogleMobileAds.h>
 
-@interface WGAdmobAdapter () <GADInterstitialDelegate>
+@interface WGADMOBAdapter () <GADInterstitialDelegate>
 
 @property (nonatomic, strong) GADInterstitial *interstitial;
-//@property (nonatomic, strong) id<WGAdapterDelegate> delegate;
 
 @end
 
-@implementation WGAdmobAdapter
+@implementation WGADMOBAdapter
 
 - (NSString*) getName { return @"admob"; }
 

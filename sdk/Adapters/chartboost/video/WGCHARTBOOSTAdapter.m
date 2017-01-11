@@ -6,12 +6,12 @@
 //
 //
 
-#import "WGChartboostAdapter.h"
+#import "WGCHARTBOOSTAdapter.h"
 #import <AdSupport/AdSupport.h>
 
 #ifdef CB_NO_AVAILABLE
 
-@implementation WGChartboostAdapter
+@implementation WGCHARTBOOSTAdapter
 @end
 #endif
 
@@ -21,7 +21,7 @@
 #import <CommonCrypto/CommonDigest.h>
 
 
-@interface WGChartboostAdapter () <ChartboostDelegate>
+@interface WGCHARTBOOSTAdapter () <ChartboostDelegate>
 
 @property (nonatomic) int londLoadAdCounter;
 @property (nonatomic) BOOL isVideoCached;
@@ -29,7 +29,7 @@
 
 @end
 
-@implementation WGChartboostAdapter
+@implementation WGCHARTBOOSTAdapter
 
 - (id) init {
     self = [super init];

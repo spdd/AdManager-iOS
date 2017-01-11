@@ -14,6 +14,6 @@
 
 #import <AdManager/WGAdsManager.h>
 
-@interface WGChartboostAdapter : WGInterstitialCustomEvent
+@interface WGCHARTBOOSTAdapter : WGInterstitialCustomEvent
 
 @end

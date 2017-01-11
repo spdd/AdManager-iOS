@@ -6,11 +6,11 @@
 //
 //
 
-#import "WGAdcolonyVideoAdapter.h"
+#import "WGADCOLONYAdapter.h"
 
 #ifdef AC_NO_AVAILABLE
 
-@implementation WGAdcolonyVideoAdapter
+@implementation WGADCOLONYAdapter
 @end
 #endif
 
@@ -18,7 +18,7 @@
 
 #import <AdColony/AdColony.h>
 
-@interface WGAdcolonyVideoAdapter () <AdColonyDelegate, AdColonyAdDelegate>
+@interface WGADCOLONYAdapter () <AdColonyDelegate, AdColonyAdDelegate>
 
 @property (nonatomic, strong) NSString* zoneId;
 @property (nonatomic) int londLoadAdCounter;
@@ -27,7 +27,7 @@
 
 @end
 
-@implementation WGAdcolonyVideoAdapter
+@implementation WGADCOLONYAdapter
 
 - (id) init {
     self = [super init];

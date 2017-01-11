@@ -16,6 +16,6 @@
 #import <AdManager/WGAdsManager.h>
 //#import "WGInterstitialCustomEvent.h"
 
-@interface WGAdmobAdapter : WGInterstitialCustomEvent // NSObject <WGAdapterProtocol>
+@interface WGADMOBAdapter : WGInterstitialCustomEvent // NSObject <WGAdapterProtocol>
 
 @end

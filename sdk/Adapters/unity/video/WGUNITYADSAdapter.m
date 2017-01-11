@@ -6,12 +6,12 @@
 //
 //
 
-#import "WGUnityAdapter.h"
+#import "WGUNITYADSAdapter.h"
 
 
 #ifdef UNITY_NO_AVAILABLE
 
-@implementation WGUnityAdapter
+@implementation WGUNITYADSAdapter
 @end
 
 #endif
@@ -20,7 +20,7 @@
 
 #import <UnityAds/UnityAds.h>
 
-@interface WGUnityAdapter () <UnityAdsDelegate>
+@interface WGUNITYADSAdapter () <UnityAdsDelegate>
 
 @property (nonatomic) int londLoadAdCounter;
 @property (nonatomic) BOOL isVideoCached;
@@ -28,7 +28,7 @@
 
 @end
 
-@implementation WGUnityAdapter
+@implementation WGUNITYADSAdapter
 
 - (id) init {
     self = [super init];

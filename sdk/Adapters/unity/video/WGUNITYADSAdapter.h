@@ -14,6 +14,6 @@
 
 #import <AdManager/WGAdsManager.h>
 
-@interface WGUnityAdapter : WGInterstitialCustomEvent
+@interface WGUNITYADSAdapter : WGInterstitialCustomEvent
 
 @end

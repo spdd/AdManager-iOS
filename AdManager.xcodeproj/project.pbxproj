@@ -78,20 +78,6 @@
 
 /* Begin PBXFileReference section */
 		0C532F414FCDD9334DE1FC71 /* Pods_AdManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AdManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2338AEF21E230EAC003FB2F5 /* WGAdcolonyVideoAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WGAdcolonyVideoAdapter.h; sourceTree = "<group>"; };
-		2338AEF31E230EAC003FB2F5 /* WGAdcolonyVideoAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WGAdcolonyVideoAdapter.m; sourceTree = "<group>"; };
-		2338AEF61E230EAC003FB2F5 /* WGAdmobAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WGAdmobAdapter.h; sourceTree = "<group>"; };
-		2338AEF71E230EAC003FB2F5 /* WGAdmobAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WGAdmobAdapter.m; sourceTree = "<group>"; };
-		2338AEF81E230EAC003FB2F5 /* WGAdmobPrecache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WGAdmobPrecache.h; sourceTree = "<group>"; };
-		2338AEF91E230EAC003FB2F5 /* WGAdmobPrecache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WGAdmobPrecache.m; sourceTree = "<group>"; };
-		2338AEFB1E230EAC003FB2F5 /* WGAdmobRewardedAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WGAdmobRewardedAdapter.h; sourceTree = "<group>"; };
-		2338AEFC1E230EAC003FB2F5 /* WGAdmobRewardedAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WGAdmobRewardedAdapter.m; sourceTree = "<group>"; };
-		2338AF1B1E230EAC003FB2F5 /* WGAppLovinRewardAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WGAppLovinRewardAdapter.h; sourceTree = "<group>"; };
-		2338AF1C1E230EAC003FB2F5 /* WGAppLovinRewardAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WGAppLovinRewardAdapter.m; sourceTree = "<group>"; };
-		2338AF1F1E230EAC003FB2F5 /* WGChartboostAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WGChartboostAdapter.h; sourceTree = "<group>"; };
-		2338AF201E230EAC003FB2F5 /* WGChartboostAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WGChartboostAdapter.m; sourceTree = "<group>"; };
-		2338AF231E230EAC003FB2F5 /* WGUnityAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WGUnityAdapter.h; sourceTree = "<group>"; };
-		2338AF241E230EAC003FB2F5 /* WGUnityAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WGUnityAdapter.m; sourceTree = "<group>"; };
 		2338AF261E230EAC003FB2F5 /* WGAdAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WGAdAgent.h; sourceTree = "<group>"; };
 		2338AF271E230EAC003FB2F5 /* WGAdAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WGAdAgent.m; sourceTree = "<group>"; };
 		2338AF281E230EAC003FB2F5 /* WGAdapterProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WGAdapterProtocol.h; sourceTree = "<group>"; };
@@ -158,115 +144,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2338AEEF1E230EAC003FB2F5 /* Adapters */ = {
-			isa = PBXGroup;
-			children = (
-				2338AEF01E230EAC003FB2F5 /* adcolony */,
-				2338AEF41E230EAC003FB2F5 /* admob */,
-				2338AF191E230EAC003FB2F5 /* applovin */,
-				2338AF1D1E230EAC003FB2F5 /* chartboost */,
-				2338AF211E230EAC003FB2F5 /* unity */,
-			);
-			path = Adapters;
-			sourceTree = "<group>";
-		};
-		2338AEF01E230EAC003FB2F5 /* adcolony */ = {
-			isa = PBXGroup;
-			children = (
-				2338AEF11E230EAC003FB2F5 /* video */,
-			);
-			path = adcolony;
-			sourceTree = "<group>";
-		};
-		2338AEF11E230EAC003FB2F5 /* video */ = {
-			isa = PBXGroup;
-			children = (
-				2338AEF21E230EAC003FB2F5 /* WGAdcolonyVideoAdapter.h */,
-				2338AEF31E230EAC003FB2F5 /* WGAdcolonyVideoAdapter.m */,
-			);
-			path = video;
-			sourceTree = "<group>";
-		};
-		2338AEF41E230EAC003FB2F5 /* admob */ = {
-			isa = PBXGroup;
-			children = (
-				2338AEF51E230EAC003FB2F5 /* interstitial */,
-				2338AEFA1E230EAC003FB2F5 /* video */,
-			);
-			path = admob;
-			sourceTree = "<group>";
-		};
-		2338AEF51E230EAC003FB2F5 /* interstitial */ = {
-			isa = PBXGroup;
-			children = (
-				2338AEF61E230EAC003FB2F5 /* WGAdmobAdapter.h */,
-				2338AEF71E230EAC003FB2F5 /* WGAdmobAdapter.m */,
-				2338AEF81E230EAC003FB2F5 /* WGAdmobPrecache.h */,
-				2338AEF91E230EAC003FB2F5 /* WGAdmobPrecache.m */,
-			);
-			path = interstitial;
-			sourceTree = "<group>";
-		};
-		2338AEFA1E230EAC003FB2F5 /* video */ = {
-			isa = PBXGroup;
-			children = (
-				2338AEFB1E230EAC003FB2F5 /* WGAdmobRewardedAdapter.h */,
-				2338AEFC1E230EAC003FB2F5 /* WGAdmobRewardedAdapter.m */,
-			);
-			path = video;
-			sourceTree = "<group>";
-		};
-		2338AF191E230EAC003FB2F5 /* applovin */ = {
-			isa = PBXGroup;
-			children = (
-				2338AF1A1E230EAC003FB2F5 /* video */,
-			);
-			path = applovin;
-			sourceTree = "<group>";
-		};
-		2338AF1A1E230EAC003FB2F5 /* video */ = {
-			isa = PBXGroup;
-			children = (
-				2338AF1B1E230EAC003FB2F5 /* WGAppLovinRewardAdapter.h */,
-				2338AF1C1E230EAC003FB2F5 /* WGAppLovinRewardAdapter.m */,
-			);
-			path = video;
-			sourceTree = "<group>";
-		};
-		2338AF1D1E230EAC003FB2F5 /* chartboost */ = {
-			isa = PBXGroup;
-			children = (
-				2338AF1E1E230EAC003FB2F5 /* video */,
-			);
-			path = chartboost;
-			sourceTree = "<group>";
-		};
-		2338AF1E1E230EAC003FB2F5 /* video */ = {
-			isa = PBXGroup;
-			children = (
-				2338AF1F1E230EAC003FB2F5 /* WGChartboostAdapter.h */,
-				2338AF201E230EAC003FB2F5 /* WGChartboostAdapter.m */,
-			);
-			path = video;
-			sourceTree = "<group>";
-		};
-		2338AF211E230EAC003FB2F5 /* unity */ = {
-			isa = PBXGroup;
-			children = (
-				2338AF221E230EAC003FB2F5 /* video */,
-			);
-			path = unity;
-			sourceTree = "<group>";
-		};
-		2338AF221E230EAC003FB2F5 /* video */ = {
-			isa = PBXGroup;
-			children = (
-				2338AF231E230EAC003FB2F5 /* WGUnityAdapter.h */,
-				2338AF241E230EAC003FB2F5 /* WGUnityAdapter.m */,
-			);
-			path = video;
-			sourceTree = "<group>";
-		};
 		2338AF251E230EAC003FB2F5 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -359,7 +236,6 @@
 		9AA3B1F71AC0139C005BA225 /* sdk */ = {
 			isa = PBXGroup;
 			children = (
-				2338AEEF1E230EAC003FB2F5 /* Adapters */,
 				2338AF251E230EAC003FB2F5 /* Common */,
 				2338AF2F1E230EAC003FB2F5 /* Config */,
 				2338AF321E230EAC003FB2F5 /* Controllers */,

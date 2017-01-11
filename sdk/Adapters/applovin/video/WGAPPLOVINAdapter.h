@@ -14,6 +14,6 @@
 
 #import <AdManager/WGAdsManager.h>
 
-@interface WGAppLovinRewardAdapter : WGInterstitialCustomEvent
+@interface WGAPPLOVINAdapter : WGInterstitialCustomEvent
 
 @end
