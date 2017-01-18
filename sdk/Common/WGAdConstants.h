@@ -57,4 +57,6 @@
 #define REM_CFG_ADMOB_V_AGGR        @"%@_v_admob_aggr"
 #define REM_CFG_ADMOB_I_AGGR        @"%@_i_admob_aggr"
 
+#define FIREBASE_LOADER_CLASS_NAME @"WGFireConfigLoader"
+
 #endif /* WGAdConstants_h */

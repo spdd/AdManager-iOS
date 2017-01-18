@@ -9,23 +9,22 @@
 #import "WGConfigLoader.h"
 #import "WGLogger.h"
 #import "WGAdConstants.h"
-@import Firebase;
 
 @interface WGConfigLoader () <NSURLConnectionDataDelegate>
 
 @property (nonatomic, strong) NSMutableData* buffer;
 @property (nonatomic, strong) NSURLConnection* connection;
-@property (nonatomic, weak) id<WGConfigLoaderDelegate> delegate;
 
 @end
 
 @implementation WGConfigLoader
 
-+ (instancetype) initWithDelegate:(id<WGConfigLoaderDelegate>)delegate {
-    WGConfigLoader* loader = [WGConfigLoader new];
-    loader.delegate = delegate;
-    [loader fetchFromFirebase];
-    return loader;
+- (id) init {
+    self = [super init];
+    if (self != nil) {
+        [self setDefaultValuesForAdmobAggregator];
+    }
+    return self;
 }
 
 - (void)dealloc {
@@ -60,12 +59,6 @@
     NSString* urlString = config[@"config_url"];
     NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]];
     [request setHTTPMethod:@"GET"];
-    /*
-    if (!([urlString rangeOfString:@"parse"].location == NSNotFound)) {
-        NSLog(@"Parse url is: %@", urlString);
-        [request setValue:[[WGConstantsManager sharedInstance] getConstants].PARSE_APP_ID forHTTPHeaderField:@"X-Parse-Application-Id"];
-        [request setValue:[[WGConstantsManager sharedInstance] getConstants].PARSE_REST_API_KEY forHTTPHeaderField:@"X-Parse-REST-API-Key"];
-    } */
 
     self.connection = [NSURLConnection connectionWithRequest:request delegate:self];
     if (self.connection) {
@@ -77,11 +70,13 @@
     }
 }
 
-- (void)runFirebaseTask:(NSString*)config {
+- (void)runTaskWithConfig:(NSString*)config {
     [self loadFromFile:config];
 }
 
-- (void) fetchFromFirebase {
+- (void) fetch {
+    [self runTask];
+    /*
     @try {
         FIRRemoteConfig* remoteConfig = [FIRRemoteConfig remoteConfig];
         FIRRemoteConfigSettings *remoteConfigSettings = [[FIRRemoteConfigSettings alloc] initWithDeveloperModeEnabled:YES];
@@ -90,10 +85,8 @@
             if (status == FIRRemoteConfigFetchStatusSuccess) {
                 AODLOG_DEBUG(@"Config fetched!");
                 [remoteConfig activateFetched];
-                
-                NSArray *bundleIdentifiers = [[[NSBundle mainBundle] bundleIdentifier] componentsSeparatedByString:@"."];
-                NSString* prefix = [bundleIdentifiers.lastObject stringByReplacingOccurrencesOfString:@"-" withString:@""];
-                NSString* configKey = [NSString stringWithFormat:REM_CFG_ADCONFIG, prefix];
+
+                NSString* configKey = [self getConfigKey];
                 //if (remoteConfig[@"ad_config_whatthewordrus"].stringValue.length > 0) {
                 //    NSLog(@"configKey exists");
                 //}
@@ -112,7 +105,7 @@
                 //NSLog(@"admobVideoAggrKey: %ld", [remoteConfig[admobVideoAggrKey].numberValue integerValue]);
                 
                 if (remoteConfig[configKey].stringValue.length != 0) {
-                    [self runFirebaseTask:remoteConfig[configKey].stringValue];
+                    [self runTaskWithConfig:remoteConfig[configKey].stringValue];
                 } else {
                     [self runTask];
                 }
@@ -132,7 +125,20 @@
         [self savePrefValue:0 forKey:PKEY_INTERS_ADMOB_AGGR];
         [self runTask];
     }
+     */
+    
+}
 
+- (void) setDefaultValuesForAdmobAggregator {
+    [self savePrefValue:0 forKey:PKEY_VIDEO_ADMOB_AGGR];
+    [self savePrefValue:0 forKey:PKEY_INTERS_ADMOB_AGGR];
+}
+
+- (NSString*) getConfigKey {
+    NSArray *bundleIdentifiers = [[[NSBundle mainBundle] bundleIdentifier] componentsSeparatedByString:@"."];
+    NSString* prefix = [bundleIdentifiers.lastObject stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    NSString* configKey = [NSString stringWithFormat:REM_CFG_ADCONFIG, prefix];
+    return configKey;
 }
 
 - (void) savePrefValue:(NSInteger)value forKey:(NSString*)key {
@@ -172,6 +178,7 @@
         if (error) {
             AODLOG_FULL_BANNER(@"%@", [error description]);
             [self loadFromFile:nil];
+            return;
             //[self.delegate onConfigFailedToLoad:0];
         }
         AODLOG_FULL_BANNER(@"size: %lu\n%@", (unsigned long)[dataDict count], dataDict[@"params"][@"ad_config"]);

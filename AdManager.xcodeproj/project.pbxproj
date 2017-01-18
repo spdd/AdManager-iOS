@@ -31,7 +31,7 @@
 		2338AF691E230EAC003FB2F5 /* WGAdsInstanceFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 2338AF2C1E230EAC003FB2F5 /* WGAdsInstanceFactory.h */; };
 		2338AF6A1E230EAC003FB2F5 /* WGAdsInstanceFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2338AF2D1E230EAC003FB2F5 /* WGAdsInstanceFactory.m */; };
 		2338AF6B1E230EAC003FB2F5 /* WGTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 2338AF2E1E230EAC003FB2F5 /* WGTypes.h */; };
-		2338AF6C1E230EAC003FB2F5 /* WGConfigLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 2338AF301E230EAC003FB2F5 /* WGConfigLoader.h */; };
+		2338AF6C1E230EAC003FB2F5 /* WGConfigLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 2338AF301E230EAC003FB2F5 /* WGConfigLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2338AF6D1E230EAC003FB2F5 /* WGConfigLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2338AF311E230EAC003FB2F5 /* WGConfigLoader.m */; };
 		2338AF6E1E230EAC003FB2F5 /* WGBaseAdsController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2338AF331E230EAC003FB2F5 /* WGBaseAdsController.h */; };
 		2338AF6F1E230EAC003FB2F5 /* WGBaseAdsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2338AF341E230EAC003FB2F5 /* WGBaseAdsController.m */; };
@@ -46,10 +46,10 @@
 		2338AF781E230EAC003FB2F5 /* WGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2338AF3E1E230EAC003FB2F5 /* WGUtils.m */; };
 		2338AF791E230EAC003FB2F5 /* WGAdsManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 2338AF3F1E230EAC003FB2F5 /* WGAdsManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2338AF7A1E230EAC003FB2F5 /* WGAdsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2338AF401E230EAC003FB2F5 /* WGAdsManager.m */; };
-		2338AF7B1E230EAC003FB2F5 /* WGUserAdCallbacks.h in Headers */ = {isa = PBXBuildFile; fileRef = 2338AF411E230EAC003FB2F5 /* WGUserAdCallbacks.h */; };
+		2338AF7B1E230EAC003FB2F5 /* WGUserAdCallbacks.h in Headers */ = {isa = PBXBuildFile; fileRef = 2338AF411E230EAC003FB2F5 /* WGUserAdCallbacks.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2338AF7E1E231230003FB2F5 /* WGReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 2338AF7C1E231230003FB2F5 /* WGReachability.h */; };
 		2338AF7F1E231230003FB2F5 /* WGReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 2338AF7D1E231230003FB2F5 /* WGReachability.m */; };
-		2338AF8F1E23318E003FB2F5 /* WGInterstitialCustomEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 2338AF8D1E23318E003FB2F5 /* WGInterstitialCustomEvent.h */; };
+		2338AF8F1E23318E003FB2F5 /* WGInterstitialCustomEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 2338AF8D1E23318E003FB2F5 /* WGInterstitialCustomEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2338AF901E23318E003FB2F5 /* WGInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 2338AF8E1E23318E003FB2F5 /* WGInterstitialCustomEvent.m */; };
 		9DFDB88F19CF69B07F194980 /* Pods_AdManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C532F414FCDD9334DE1FC71 /* Pods_AdManager.framework */; };
 /* End PBXBuildFile section */
@@ -291,13 +291,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				2338AF791E230EAC003FB2F5 /* WGAdsManager.h in Headers */,
-				2338AF7E1E231230003FB2F5 /* WGReachability.h in Headers */,
+				2338AF8F1E23318E003FB2F5 /* WGInterstitialCustomEvent.h in Headers */,
 				2338AF7B1E230EAC003FB2F5 /* WGUserAdCallbacks.h in Headers */,
+				2338AF6C1E230EAC003FB2F5 /* WGConfigLoader.h in Headers */,
+				2338AF7E1E231230003FB2F5 /* WGReachability.h in Headers */,
 				2338AF6E1E230EAC003FB2F5 /* WGBaseAdsController.h in Headers */,
 				2338AF691E230EAC003FB2F5 /* WGAdsInstanceFactory.h in Headers */,
 				2338AF651E230EAC003FB2F5 /* WGAdapterProtocol.h in Headers */,
-				2338AF8F1E23318E003FB2F5 /* WGInterstitialCustomEvent.h in Headers */,
-				2338AF6C1E230EAC003FB2F5 /* WGConfigLoader.h in Headers */,
 				2338AF771E230EAC003FB2F5 /* WGUtils.h in Headers */,
 				2338AF751E230EAC003FB2F5 /* WGTimer.h in Headers */,
 				2338AF741E230EAC003FB2F5 /* WGLogger.h in Headers */,

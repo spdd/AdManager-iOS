@@ -17,6 +17,11 @@
 
 @interface WGConfigLoader : NSObject
 
-+ (instancetype) initWithDelegate:(id<WGConfigLoaderDelegate>)delegate;
+- (void) fetch;
+- (void)runTask;
+- (void)runTaskWithConfig:(NSString*)config;
+- (NSString*) getConfigKey;
+
+@property (nonatomic, weak) id<WGConfigLoaderDelegate> delegate;
 
 @end

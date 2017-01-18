@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "WGUserAdCallbacks.h"
 #import "WGInterstitialCustomEvent.h"
+#import "WGConfigLoader.h"
 
 //#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_8_0
 //#error The AdsManager SDK requires a deployment target of iOS 7.0 or later.

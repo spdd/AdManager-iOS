@@ -299,7 +299,7 @@
     if ([WGUtils isInternetAvailable]) {
         self.isLoading = YES;
         // download config from network
-        [[WGAdsInstanceFactory sharedInstance] createConfigLoader:self];
+        [[[WGAdsInstanceFactory sharedInstance] createConfigLoader:self] fetch];
         if (self.autocache) {
             //scheduleRefreshCacheBanner();
         }

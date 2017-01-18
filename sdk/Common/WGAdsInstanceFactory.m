@@ -44,7 +44,17 @@
 }
 
 - (WGConfigLoader*) createConfigLoader:(id<WGConfigLoaderDelegate>)delegate {
-    return [WGConfigLoader initWithDelegate:delegate];
+    Class customClass = NSClassFromString(FIREBASE_LOADER_CLASS_NAME);
+    if (!customClass) {
+        AODLOG_DEBUG(@"Not found class %@", FIREBASE_LOADER_CLASS_NAME);
+    } else {
+        WGConfigLoader *customLoader = [[customClass alloc] init];
+        customLoader.delegate = delegate;
+        return customLoader;
+    }
+    WGConfigLoader* defaultLoader = [[WGConfigLoader alloc] init];
+    defaultLoader.delegate = delegate;
+    return defaultLoader;
 }
 
 - (WGAdAgent*) createAdAgent:(id<WGAdAgentDelegate>)agentDelegate {
