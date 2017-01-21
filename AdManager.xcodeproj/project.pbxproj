@@ -22,6 +22,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		232E7DEE1E31BC9100A6ADDF /* WGConfigSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 232E7DEC1E31BC9100A6ADDF /* WGConfigSettings.h */; };
+		232E7DEF1E31BC9100A6ADDF /* WGConfigSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 232E7DED1E31BC9100A6ADDF /* WGConfigSettings.m */; };
 		2338AF631E230EAC003FB2F5 /* WGAdAgent.h in Headers */ = {isa = PBXBuildFile; fileRef = 2338AF261E230EAC003FB2F5 /* WGAdAgent.h */; };
 		2338AF641E230EAC003FB2F5 /* WGAdAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 2338AF271E230EAC003FB2F5 /* WGAdAgent.m */; };
 		2338AF651E230EAC003FB2F5 /* WGAdapterProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 2338AF281E230EAC003FB2F5 /* WGAdapterProtocol.h */; };
@@ -78,6 +80,8 @@
 
 /* Begin PBXFileReference section */
 		0C532F414FCDD9334DE1FC71 /* Pods_AdManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AdManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		232E7DEC1E31BC9100A6ADDF /* WGConfigSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WGConfigSettings.h; sourceTree = "<group>"; };
+		232E7DED1E31BC9100A6ADDF /* WGConfigSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WGConfigSettings.m; sourceTree = "<group>"; };
 		2338AF261E230EAC003FB2F5 /* WGAdAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WGAdAgent.h; sourceTree = "<group>"; };
 		2338AF271E230EAC003FB2F5 /* WGAdAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WGAdAgent.m; sourceTree = "<group>"; };
 		2338AF281E230EAC003FB2F5 /* WGAdapterProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WGAdapterProtocol.h; sourceTree = "<group>"; };
@@ -158,6 +162,8 @@
 				2338AF2E1E230EAC003FB2F5 /* WGTypes.h */,
 				2338AF8D1E23318E003FB2F5 /* WGInterstitialCustomEvent.h */,
 				2338AF8E1E23318E003FB2F5 /* WGInterstitialCustomEvent.m */,
+				232E7DEC1E31BC9100A6ADDF /* WGConfigSettings.h */,
+				232E7DED1E31BC9100A6ADDF /* WGConfigSettings.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -301,6 +307,7 @@
 				2338AF771E230EAC003FB2F5 /* WGUtils.h in Headers */,
 				2338AF751E230EAC003FB2F5 /* WGTimer.h in Headers */,
 				2338AF741E230EAC003FB2F5 /* WGLogger.h in Headers */,
+				232E7DEE1E31BC9100A6ADDF /* WGConfigSettings.h in Headers */,
 				2338AF6B1E230EAC003FB2F5 /* WGTypes.h in Headers */,
 				2338AF701E230EAC003FB2F5 /* WGInterstitialController.h in Headers */,
 				2338AF671E230EAC003FB2F5 /* WGAdObject.h in Headers */,
@@ -443,6 +450,7 @@
 				2338AF6A1E230EAC003FB2F5 /* WGAdsInstanceFactory.m in Sources */,
 				2338AF901E23318E003FB2F5 /* WGInterstitialCustomEvent.m in Sources */,
 				2338AF641E230EAC003FB2F5 /* WGAdAgent.m in Sources */,
+				232E7DEF1E31BC9100A6ADDF /* WGConfigSettings.m in Sources */,
 				2338AF7F1E231230003FB2F5 /* WGReachability.m in Sources */,
 				2338AF761E230EAC003FB2F5 /* WGTimer.m in Sources */,
 				2338AF681E230EAC003FB2F5 /* WGAdObject.m in Sources */,

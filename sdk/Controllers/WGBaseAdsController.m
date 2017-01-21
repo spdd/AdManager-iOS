@@ -14,6 +14,7 @@
 #import "WGUtils.h"
 #import "WGConfigLoader.h"
 #import "WGTimer.h"
+#import "WGConfigSettings.h"
 
 @interface WGBaseAdsController () <WGConfigLoaderDelegate>
 
@@ -375,6 +376,8 @@
                 [self loadAd];
             } else
                 [self logger:self.controllerType message:@"Ads is empty"];
+            
+            [[WGConfigSettings sharedInstance] setupSettings:config];
             
         } @catch (NSException *exception) {
             [self logger:self.controllerType message:[exception description]];

@@ -9,6 +9,7 @@
 #import "WGConfigLoader.h"
 #import "WGLogger.h"
 #import "WGAdConstants.h"
+#import "WGUtils.h"
 
 @interface WGConfigLoader () <NSURLConnectionDataDelegate>
 
@@ -38,17 +39,37 @@
 }
 
 - (NSDictionary*) getDataDict:(NSString*)config {
-    NSError* error = nil;
     NSString* json;
-    if (!config)
+    BOOL isLocalConfig = NO;
+    if (!config) {
         json = [[NSUserDefaults standardUserDefaults] stringForKey:PKEY_GAME_ADCONFIG];
-    else
+        isLocalConfig = YES;
+    } else {
         json = config;
+    }
+    NSError* error = nil;
     NSData* data = [json dataUsingEncoding:NSUTF8StringEncoding];
-    return [NSJSONSerialization JSONObjectWithData: data options: NSJSONReadingMutableContainers error: &error];
+    NSDictionary* result = [NSJSONSerialization JSONObjectWithData: data options: NSJSONReadingMutableContainers error: &error];
+    
+    if (error) {
+        AODLOG_DEBUG(@"Config json error: %@", [error description]);
+    } else {
+        // save ad config for 24 hours (only from internet!), if ad config not available load from cache
+        if(![WGUtils hasValidConfig] && !isLocalConfig) {
+            AODLOG_DEBUG(@"Save Config");
+            [WGUtils saveAdConfig:json];
+        }
+    }
+    return result;
 }
 
 - (void)runTask {
+    if ([WGUtils hasValidConfig]) {
+        AODLOG_DEBUG(@"Config from cache: %@", [WGUtils getAdConfig]);
+        [self.delegate onConfigLoaded:[self getDataDict:[WGUtils getAdConfig]]];
+        return;
+    }
+    
     NSDictionary* config = [self getDataDict:nil];
     NSString* configFromUrl = config[@"config_from_url"];
     if (configFromUrl && [configFromUrl isEqualToString:@"0"]) {
@@ -66,7 +87,6 @@
         [self.connection start];
     } else {
         [self loadFromFile:nil];
-        //[self.delegate onConfigFailedToLoad:0];
     }
 }
 
@@ -76,62 +96,11 @@
 
 - (void) fetch {
     [self runTask];
-    /*
-    @try {
-        FIRRemoteConfig* remoteConfig = [FIRRemoteConfig remoteConfig];
-        FIRRemoteConfigSettings *remoteConfigSettings = [[FIRRemoteConfigSettings alloc] initWithDeveloperModeEnabled:YES];
-        remoteConfig.configSettings = remoteConfigSettings;
-        [remoteConfig fetchWithExpirationDuration:0 completionHandler:^(FIRRemoteConfigFetchStatus status, NSError *error) {
-            if (status == FIRRemoteConfigFetchStatusSuccess) {
-                AODLOG_DEBUG(@"Config fetched!");
-                [remoteConfig activateFetched];
-
-                NSString* configKey = [self getConfigKey];
-                //if (remoteConfig[@"ad_config_whatthewordrus"].stringValue.length > 0) {
-                //    NSLog(@"configKey exists");
-                //}
-                AODLOG_DEBUG(@"configKey: %@", configKey);
-                AODLOG_DEBUG(@"Fire config: %@", remoteConfig[configKey].stringValue);
-                NSString* admobVideoAggrKey = [NSString stringWithFormat:REM_CFG_ADMOB_V_AGGR, prefix];
-                NSString* admobIntersAggrKey = [NSString stringWithFormat:REM_CFG_ADMOB_I_AGGR, prefix];
-                if (remoteConfig[admobVideoAggrKey])
-                    [self savePrefValue:[remoteConfig[admobVideoAggrKey].numberValue integerValue] forKey:PKEY_VIDEO_ADMOB_AGGR];
-                else
-                    [self savePrefValue:0 forKey:PKEY_VIDEO_ADMOB_AGGR];
-                if (remoteConfig[admobIntersAggrKey])
-                    [self savePrefValue:[remoteConfig[admobIntersAggrKey].numberValue integerValue] forKey:PKEY_INTERS_ADMOB_AGGR];
-                else
-                    [self savePrefValue:0 forKey:PKEY_INTERS_ADMOB_AGGR];
-                //NSLog(@"admobVideoAggrKey: %ld", [remoteConfig[admobVideoAggrKey].numberValue integerValue]);
-                
-                if (remoteConfig[configKey].stringValue.length != 0) {
-                    [self runTaskWithConfig:remoteConfig[configKey].stringValue];
-                } else {
-                    [self runTask];
-                }
-
-            } else {
-                AODLOG(@"Config not fetched");
-                AODLOG(@"Error %@", error.localizedDescription);
-                [self savePrefValue:0 forKey:PKEY_VIDEO_ADMOB_AGGR];
-                [self savePrefValue:0 forKey:PKEY_INTERS_ADMOB_AGGR];
-                [self runTask];
-            }
-        }];
-    } @catch (NSException *exception) {
-        AODLOG(@"Config not fetched");
-        AODLOG(@"Error %@", error.localizedDescription);
-        [self savePrefValue:0 forKey:PKEY_VIDEO_ADMOB_AGGR];
-        [self savePrefValue:0 forKey:PKEY_INTERS_ADMOB_AGGR];
-        [self runTask];
-    }
-     */
-    
 }
 
 - (void) setDefaultValuesForAdmobAggregator {
-    [self savePrefValue:0 forKey:PKEY_VIDEO_ADMOB_AGGR];
-    [self savePrefValue:0 forKey:PKEY_INTERS_ADMOB_AGGR];
+    [WGUtils setIntValue:PKEY_VIDEO_ADMOB_AGGR value:0];
+    [WGUtils setIntValue:PKEY_INTERS_ADMOB_AGGR value:0];
 }
 
 - (NSString*) getConfigKey {
@@ -141,12 +110,13 @@
     return configKey;
 }
 
-- (void) savePrefValue:(NSInteger)value forKey:(NSString*)key {
-    [[NSUserDefaults standardUserDefaults] setInteger:value forKey:key];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
 - (void) loadFromFile:(NSString*)config {
+    if (config == nil && [WGUtils hasValidConfig]) {
+        AODLOG_DEBUG(@"Config from cache: %@", [WGUtils getAdConfig]);
+        [self.delegate onConfigLoaded:[self getDataDict:[WGUtils getAdConfig]]];
+        return;
+    }
+    
     NSDictionary *dataDict = [self getDataDict:config];
     
     if (!dataDict) {
@@ -175,23 +145,18 @@
         if(self.buffer) {
             dataDict = [NSJSONSerialization JSONObjectWithData:self.buffer options: NSJSONReadingMutableContainers error: &error];
         }
-        if (error) {
-            AODLOG_FULL_BANNER(@"%@", [error description]);
+        if (error || self.buffer == nil) {
+            AODLOG_DEBUG(@"%@", [error description]);
             [self loadFromFile:nil];
             return;
-            //[self.delegate onConfigFailedToLoad:0];
+        } else {
+            NSString* config = [[NSString alloc] initWithData:self.buffer encoding:NSUTF8StringEncoding];
+            AODLOG_DEBUG(@"Config from custom URL: %@", config);
+            [self loadFromFile:config];
         }
-        AODLOG_FULL_BANNER(@"size: %lu\n%@", (unsigned long)[dataDict count], dataDict[@"params"][@"ad_config"]);
-        NSDictionary* result = [NSJSONSerialization JSONObjectWithData:[dataDict[@"params"][@"ad_config"] dataUsingEncoding:NSUTF8StringEncoding] options: NSJSONReadingMutableContainers error: &error];
-        if (result) {
-            [self.delegate onConfigLoaded:result];
-        }
-        else
-            [self loadFromFile:nil];
     }
     @catch (NSException *exception) {
         AODLOG_ERROR(@"%@",[exception description]);
-        //[self.delegate onConfigFailedToLoad:0];
         [self loadFromFile:nil];
     }
 }

@@ -17,6 +17,7 @@
 #define DEBUG_INFO          0 // AODLOG()
 
 #define PRECACHE_ALLOWED    0
+#define SHOW_AD_EVERY_LEVEL 6
 
 #define SERVER_TIMEOUT          20
 #define LOADING_TIMEOUT_MS      60000.0 // 60 sec
@@ -43,7 +44,7 @@
 #define SERVER_NOT_RESPONDING_TIMEOUT                 60
 
 // Timeouts for ad which loaded
-#define CONFIG_STORE_TIMEOUT                          12 // in hours
+#define CONFIG_STORE_TIMEOUT                          24 // in hours
 #define ANTICLICKER_TIMEOUT                           24 // in hours
 
 // String keys
