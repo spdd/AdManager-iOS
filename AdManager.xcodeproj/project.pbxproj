@@ -131,7 +131,6 @@
 		9A59D7D01AC92ECB0032A4F3 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		9A59D7FE1AC92F700032A4F3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		9AA3B07C1ABFF748005BA225 /* libAdManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAdManager.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		9AA3B08D1ABFF74A005BA225 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC6EEE370184026A0BC36614 /* Pods-AdManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdManager.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AdManager/Pods-AdManager.debug.xcconfig"; sourceTree = "<group>"; };
 		D97B59B9E18AFBB53C6A8AA4 /* Pods-AdManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdManager.release.xcconfig"; path = "Pods/Target Support Files/Pods-AdManager/Pods-AdManager.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -209,7 +208,6 @@
 			children = (
 				9AA3B2ED1AC114BC005BA225 /* Frameworks */,
 				9AA3B1F71AC0139C005BA225 /* sdk */,
-				9AA3B08B1ABFF749005BA225 /* Appodeal_iOSSDKTests */,
 				9AA3B07D1ABFF748005BA225 /* Products */,
 				BD54AD13656230E19AB484C1 /* Pods */,
 			);
@@ -221,22 +219,6 @@
 				9AA3B07C1ABFF748005BA225 /* libAdManager.a */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		9AA3B08B1ABFF749005BA225 /* Appodeal_iOSSDKTests */ = {
-			isa = PBXGroup;
-			children = (
-				9AA3B08C1ABFF749005BA225 /* Supporting Files */,
-			);
-			path = Appodeal_iOSSDKTests;
-			sourceTree = "<group>";
-		};
-		9AA3B08C1ABFF749005BA225 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				9AA3B08D1ABFF74A005BA225 /* Info.plist */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		9AA3B1F71AC0139C005BA225 /* sdk */ = {

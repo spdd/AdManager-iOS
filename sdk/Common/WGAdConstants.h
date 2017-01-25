@@ -9,6 +9,8 @@
 #ifndef WGAdConstants_h
 #define WGAdConstants_h
 
+#define DEBUG 1
+
 #define DEBUG_ERROR         DEBUG == 0 ? 0 : 0
 #define DEBUG_FULL_BANNER   DEBUG == 0 ? 0 : 1
 #define DEBUG_SMALL_BANNER  DEBUG == 0 ? 0 : 1
