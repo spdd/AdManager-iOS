@@ -24,12 +24,12 @@
     static dispatch_once_t once;
     dispatch_once(&once, ^{
         _instance = [[super alloc] initUniqueInstance];
-        [[NSUserDefaults standardUserDefaults] setBool:autoCache forKey:PKEY_AUTOCACHE];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:PKEY_AUTOCACHE];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
         AODLOG_DEBUG(@"Initialize interstitial");
-        [WGInterstitialController initialize:autoCache];
-        [WGVideoController initialize:autoCache];
+        [WGInterstitialController initialize:YES];
+        [WGVideoController initialize:YES];
     });
     return _instance;
 }
@@ -40,15 +40,15 @@
     static dispatch_once_t once;
     dispatch_once(&once, ^{
         _instance = [[super alloc] initUniqueInstance];
-        [[NSUserDefaults standardUserDefaults] setBool:autoCache forKey:PKEY_AUTOCACHE];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:PKEY_AUTOCACHE];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
         [[NSUserDefaults standardUserDefaults] setObject:adsConfig forKey:PKEY_GAME_ADCONFIG];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
         AODLOG_DEBUG(@"Initialize interstitial");
-        [WGInterstitialController initialize:autoCache];
-        [WGVideoController initialize:autoCache];
+        [WGInterstitialController initialize:YES];
+        [WGVideoController initialize:YES];
     });
     return _instance;
 }
